@@ -15,7 +15,7 @@ export default {
         ]
     },
     mode: 'development',
-    devtool: 'eval-source-map',
+    devtool: 'cheap-source-map',
     plugins: [
         new CopyPlugin({
             patterns: [

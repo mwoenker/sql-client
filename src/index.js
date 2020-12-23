@@ -1,5 +1,6 @@
-import React, {useState, useReducer, useEffect, useLayoutEffect, useRef} from 'react';
+import React, {useState} from 'react';
 import ReactDOM from 'react-dom';
+import Login from './login.js';
 
 function App({}) {
     const [text, setText] = useState('Hello, world!');
@@ -8,7 +9,12 @@ function App({}) {
         setText(text => text + ' again');
     };
 
-    return <div onClick={click}>{text}</div>;
+    return (
+        <div onClick={click}>
+            {text}
+            <Login />
+        </div>
+    );
 }
 
 ReactDOM.render(<App />, document.getElementById('app'));
