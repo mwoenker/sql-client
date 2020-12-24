@@ -5,7 +5,12 @@ const LoginContext = createContext();
 export function LoginContextProvider({children}) {
     const [loginState, setLoginState] = useState({
         loggedIn: false,
-        credentials: null,
+        credentials: {
+            username: '',
+            password: '',
+            host: '',
+            port: 5432,
+        },
     });
     
     const login = ({username, password, host, port}) => {

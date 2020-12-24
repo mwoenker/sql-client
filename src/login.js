@@ -19,17 +19,13 @@ const loginFields = [
     {name: 'username', title: 'Username'},
     {name: 'password', title: 'Password'},
     {name: 'host', title: 'Host'},
-    {name: 'port', title: 'Port', default: 5432},
+    {name: 'port', title: 'Port'},
 ];
 
 function defaultState(credentials) {
     let state = {};
     for (const field of loginFields) {
-        if (credentials) {
-            state[field.name] = credentials[field.name];
-        } else {
-            state[field.name] = field.default || '';
-        }
+        state[field.name] = credentials[field.name];
     }
     return state;
 }
