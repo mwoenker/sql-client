@@ -4,9 +4,9 @@ import Login from './login.js';
 import {LoginContextProvider, useLoginContext} from './login-context.js';
 
 function App({}) {
-    const {loggedIn, credentials, logout} = useLoginContext();
+    const {state, credentials, logout} = useLoginContext();
 
-    if (loggedIn) {
+    if ('loggedIn' === state) {
         return (
             <div>
                 <pre>Creds: {JSON.stringify(credentials, null, 4)}</pre>

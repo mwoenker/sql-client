@@ -4,7 +4,7 @@ const LoginContext = createContext();
 
 export function LoginContextProvider({children}) {
     const [loginState, setLoginState] = useState({
-        loggedIn: false,
+        state: 'loggedOut',
         credentials: {
             username: '',
             password: '',
