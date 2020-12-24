@@ -1,20 +1,29 @@
 import React, {useState} from 'react';
 import ReactDOM from 'react-dom';
 import Login from './login.js';
+import {LoginContextProvider, useLoginContext} from './login-context.js';
 
 function App({}) {
-    const [text, setText] = useState('Hello, world!');
+    const {loggedIn, credentials, logout} = useLoginContext();
 
-    const click = (e) => {
-        setText(text => text + ' again');
-    };
+    if (loggedIn) {
+        return (
+            <div>
+                <pre>Creds: {JSON.stringify(credentials, null, 4)}</pre>
+                <button onClick={logout}>Log out</button>
+            </div>
+        );
+    } else {
+        return <Login />;
+    }
+}
 
+function AppContainer({}) {
     return (
-        <div onClick={click}>
-            {text}
-            <Login />
-        </div>
+        <LoginContextProvider>
+            <App />
+        </LoginContextProvider>
     );
 }
 
-ReactDOM.render(<App />, document.getElementById('app'));
+ReactDOM.render(<AppContainer />, document.getElementById('app'));

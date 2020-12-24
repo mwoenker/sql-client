@@ -11,7 +11,9 @@ export default {
     },
     module: {
         rules: [
-            {test: /\.(js)$/, use: 'babel-loader'},
+            {
+                test: /\.(js)$/, use: 'babel-loader',
+            },
         ]
     },
     mode: 'development',
