@@ -3,7 +3,7 @@ import CopyPlugin from 'copy-webpack-plugin';
 
 export default {
     entry: {
-        main: './src/index.js',
+        main: './client/index.js',
     },
     output: {
         path: path.resolve('./public'),
@@ -21,7 +21,7 @@ export default {
     plugins: [
         new CopyPlugin({
             patterns: [
-                {from: 'src/index.html', to: 'index.html'},
+                {from: 'client/index.html', to: 'index.html'},
             ],
         }),
     ]
