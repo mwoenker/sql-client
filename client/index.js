@@ -35,11 +35,13 @@ function QueryView({}) {
 
     return (
         <div>
-            <select value={selectedSchema} onChange={selectSchema}>
-                {Object.keys(schemas).map(schema => (
-                    <option key={schema} value={schema}>{schema}</option>
-                ))}
-            </select>
+            <label>Schema
+                <select value={selectedSchema} onChange={selectSchema}>
+                    {Object.keys(schemas).map(schema => (
+                        <option key={schema} value={schema}>{schema}</option>
+                    ))}
+                </select>
+            </label>
             <ul>
                 {tables.map(table => <li key={table}>{table}</li>)}
             </ul>
@@ -54,7 +56,6 @@ function App({}) {
         return (
             <div>
                 <QueryView />
-                <pre>Creds: {JSON.stringify(credentials, null, 4)}</pre>
                 <button onClick={logout}>Log out</button>
             </div>
         );
