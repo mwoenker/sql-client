@@ -1,4 +1,4 @@
-export default {
+module.exports = {
     user: {
         presence: true,
         type: 'string',

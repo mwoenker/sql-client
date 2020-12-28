@@ -1,9 +1,9 @@
-import express from 'express';
-import routes from './server/routes.js';
-import webpack from 'webpack';
-import webpackDevMiddleware from 'webpack-dev-middleware';
-import webpackConfig from './webpack.config.js';
-import bodyParser from 'body-parser';
+const express = require('express');
+const routes = require('./server/routes.js');
+const webpack = require('webpack');
+const webpackDevMiddleware = require('webpack-dev-middleware');
+const webpackConfig = require('./webpack.config.js');
+const bodyParser = require('body-parser');
 
 const port = 3000;
 

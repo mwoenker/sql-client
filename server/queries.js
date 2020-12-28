@@ -1,20 +1,20 @@
-import pg from 'pg';
+const pg = require('pg');
 
-export class DatabaseError extends Error {}
+class DatabaseError extends Error {}
 
-export class ConnectionError extends DatabaseError {
+class ConnectionError extends DatabaseError {
     constructor(cause) {
         super(`Connection error: ${cause}`);
     }
 }
 
-export class QueryError extends DatabaseError {
+class QueryError extends DatabaseError {
     constructor(cause) {
         super(`Query error: ${cause}`);
     }
 }
 
-export async function connect(params) {
+async function connect(params) {
     let client;
     try {
         client = new pg.Client(params);
@@ -25,31 +25,49 @@ export async function connect(params) {
     return client;
 }
 
-async function query(client, sql, values=[]) {
+async function query(client, ...args) {
     try {
-        return await client.query(sql, values)
+        return await client.query(...args);
     } catch (e) {
         throw new QueryError(e);
     }
 }
 
-export async function listSchemas(client) {
-    const result = await query(
-        client,
-        'select schema_name ' +
+async function listSchemas(client) {
+    const result = await query(client, {
+        text: 'select schema_name ' +
             'from information_schema.schemata ' +
             'order by schema_name'
-    );
+    });
     return result.rows.map(row => row.schema_name);
 }
 
-export async function listTables(client, schemaName) {
-    const result = await query(
+async function listTables(client, schemaName) {
+    const result = await query(client, {
         client,
-        'select table_name ' +
+        text: 'select table_name ' +
             'from information_schema.tables ' +
             'where table_schema = $1 ' +
             'order by table_name',
-        [schemaName])
+        values: [schemaName]
+    });
     return result.rows.map(row => row.table_name);
 }
+
+async function runQuery(client, text) {
+    const result = await query(client, {text, rowMode: 'array'});
+    return {
+        columns: result.fields.map(field => field.name),
+        rows: result.rows,
+    };
+}
+
+module.exports = {
+    DatabaseError,
+    ConnectionError,
+    QueryError,
+    connect,
+    listSchemas,
+    listTables,
+    runQuery,
+};
