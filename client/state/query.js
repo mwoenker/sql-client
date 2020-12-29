@@ -10,6 +10,8 @@ export function queryReducer(state = initialState, action) {
         return {state: 'error', error: action.payload, data: null};
     case 'query/loaded':
         return {state: 'loaded', error: null, data: action.payload};
+    case 'login/logout':
+        return initialState;
     default:
         return state;
     }
