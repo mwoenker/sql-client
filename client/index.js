@@ -1,7 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import ReactDOM from 'react-dom';
 import Login from './login.js';
-import {LoginContextProvider, useLoginContext} from './login-context.js';
+//import {LoginContextProvider, useLoginContext} from './login-context.js';
+import {Provider, useSelector, useDispatch} from 'react-redux'
+
+import store from './state/global.js';
+import {login, logout} from './state/login.js';
 import TableList from './table-list.js';
 import ResultsTable from './result-table.js';
 import QueryForm from './query-form.js';
@@ -42,15 +46,20 @@ const SidePanelBottom = styled.div({
 });
 
 function App({}) {
-    const {state, login, logout, schemas, queryResult} = useLoginContext();
-
-    if ('loggedIn' === state) {
+    //const {state, login, logout, schemas, queryResult} = useLoginContext();
+    const loginData = useSelector(state => state.login.schemas);
+    const queryResult = useSelector(state => state.queryResult);
+    const dispatch = useDispatch();
+    
+    const doLogout = () => dispatch(logout());
+    
+    if ('loaded' === loginData.state) {
         return (
             <Layout>
                 <SidePanel>
-                    <TableList schemas={schemas} />
+                    <TableList schemas={loginData.data.schemas || {}} />
                     <SidePanelBottom>
-                        <button onClick={logout}>Log out</button>
+                        <button onClick={doLogout}>Log out</button>
                     </SidePanelBottom>
                 </SidePanel>
                 <MainPanel>
@@ -70,9 +79,9 @@ function App({}) {
 
 function AppContainer({}) {
     return (
-        <LoginContextProvider>
+        <Provider store={store}>
             <App />
-        </LoginContextProvider>
+        </Provider>
     );
 }
 

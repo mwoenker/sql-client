@@ -2,7 +2,9 @@ import React, {useState, useEffect} from 'react';
 import ReactDOM from 'react-dom';
 import { css, jsx } from '@emotion/react';
 import styled from '@emotion/styled'
-import {useLoginContext} from './login-context.js';
+//import {useLoginContext} from './login-context.js';
+import {useSelector, useDispatch} from 'react-redux'
+import {runQuery} from './state/query.js';
 
 const Controls = styled.div({
     flex: '0 auto',
@@ -27,10 +29,10 @@ const Form = styled.div({
 
 export default function QueryForm({}) {
     const [sql, setSql] = useState('');
-    const {runQuery} = useLoginContext();
+    const dispatch = useDispatch();
 
     const runQueryClicked = (e) => {
-        runQuery(sql);
+        dispatch(runQuery(sql));
     };
 
     const changeSql = (e) => {

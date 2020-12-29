@@ -34,7 +34,7 @@ router.post('/get-tables', apiHandler(async (req, res) => {
     try {
         client = await connect(credentials)
     } catch (e) {
-        return res.status(500).json({error: e.message});
+        return res.status(500).json({message: e.message});
     }
 
     const schemaTables = {};
@@ -46,7 +46,7 @@ router.post('/get-tables', apiHandler(async (req, res) => {
         };
     } catch (e) {
         if (e instanceof DatabaseError) {
-            return res.status(500).json({error: e.message});
+            return res.status(500).json({message: e.message});
         } else {
             console.error(e);
             return res.status(500).json({});
@@ -73,7 +73,7 @@ router.post('/run-query', apiHandler(async (req, res) => {
     try {
         client = await connect(credentials)
     } catch (e) {
-        return res.status(500).json({error: e.message});
+        return res.status(500).json({message: e.message});
     }
 
     let result;
@@ -81,7 +81,7 @@ router.post('/run-query', apiHandler(async (req, res) => {
         result = await runQuery(client, sql);
     } catch (e) {
         if (e instanceof DatabaseError) {
-            return res.status(500).json({error: e.message});
+            return res.status(500).json({message: e.message});
         } else {
             console.error(e);
             return res.status(500).json({});

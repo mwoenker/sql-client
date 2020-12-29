@@ -116,12 +116,12 @@ function Results({data}) {
     );
 }
 
-export default function ResultTable({loading, error, data}) {
-    if (loading) {
+export default function ResultTable({state, error, data}) {
+    if ('loading' === state) {
         return <Container>loading...</Container>;
-    } else if (error) {
-        return <Container>{error.error}</Container>;
-    } else if (data) {
+    } else if ('error' === state) {
+        return <Container>{error.message}</Container>;
+    } else if ('loaded' === state) {
         return <Container><Results data={data} /></Container>;
     } else {
         return null;

@@ -1,5 +1,7 @@
 import React, {useState, useReducer, useEffect, useLayoutEffect, useRef} from 'react';
-import {useLoginContext} from './login-context.js';
+import {useSelector, useDispatch} from 'react-redux'
+
+import {login} from './state/login.js';
 import validate from 'validate.js';
 import styled from '@emotion/styled';
 import credentialFormat from '../validators/credentials.js';
@@ -83,10 +85,18 @@ function defaultState(credentials) {
 }
     
 export default function Login({}) {
-    const {login, credentials, loginError} = useLoginContext();
-    const [formState, setFormState] = useState(() => defaultState(credentials));
+    const credentials = useSelector(state => state.login.credentials);
+    const loginData = useSelector(state => state.login.schemas);
+    const dispatch = useDispatch();
+    const [formState, setFormState] = useState(credentials)
+
+    // update form state when credentials changes
+    useEffect(
+        () => { setFormState(credentials); },
+        [credentials]
+    );
     
-    const formErrors = loginError?.formErrors ?? {};
+    const formErrors = loginData.error?.formErrors ?? {};
     
     const change = (e) => {
         setFormState({...formState, [e.target.name]: e.target.value});
@@ -94,13 +104,13 @@ export default function Login({}) {
 
     const doLogin = (e) => {
         e.preventDefault();
-        login(formState);
+        dispatch(login(formState));
     };
         
     return (
         <Container>
             <LoginForm onSubmit={doLogin}>
-                {loginError?.error || null}
+                {loginData.error?.message || null}
                 {loginFields.map(field => (
                     <Field name={field.name}
                            title={field.title}
