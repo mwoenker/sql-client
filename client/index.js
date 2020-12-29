@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import ReactDOM from 'react-dom';
 import Login from './login.js';
-//import {LoginContextProvider, useLoginContext} from './login-context.js';
 import {Provider, useSelector, useDispatch} from 'react-redux'
 
 import store from './state/global.js';

@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react';
 import ReactDOM from 'react-dom';
 import { css, jsx } from '@emotion/react';
 import styled from '@emotion/styled'
-//import {useLoginContext} from './login-context.js';
 import {useSelector, useDispatch} from 'react-redux'
 import {runQuery} from './state/query.js';
 
