@@ -87,6 +87,7 @@ export function LoginContextProvider({children}) {
     const logout = () => {
         setLoginState(oldState => ({
             ...oldState,
+            state: 'loggedOut',
             credentials: oldState.credentials
         }));
     };

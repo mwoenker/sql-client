@@ -14,30 +14,31 @@ const Layout = styled.div({
 });
 const SidePanel = styled.div({
     flex: '0 0 300px',
-    background: '#aaa',
+    background: '#ccc',
     display: 'flex',
     flexDirection: 'column',
-    padding: '0.5em 0 0.5em 0.5em',
+    padding: '0.5em 0 0.5em 0p.5em',
 });
 const MainPanel = styled.div({
     flex: '1 1 auto',
+    marginLeft: '0.5em',
     position: 'relative',
     width: 'calc(100vh - 300px)',
 });
 const QueryPane = styled.div({
     flex: '1 auto',
-    height: '50%',
+    height: '35%',
     position: 'relative',
 });
 const ResultPane = styled.div({
     borderTop: '2px solid #888',
     flex: '1 1 auto',
-    height: '50%',
+    height: '65%',
     boxSizing: 'border-box',
     position: 'relative',
 });
 const SidePanelBottom = styled.div({
-    marginTop: '0.6em',
+    margin: '0.5em 0.5em 0.5em auto',
 });
 
 function App({}) {

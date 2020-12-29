@@ -6,7 +6,8 @@ import {useLoginContext} from './login-context.js';
 
 const Controls = styled.div({
     flex: '0 auto',
-    marginTop: '1em',
+    marginTop: '0.5em',
+    marginLeft: 'auto',
 });
 
 const SqlText = styled.textarea({

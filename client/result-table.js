@@ -16,6 +16,7 @@ const Container = styled.div({
     '& th': {
         padding: '0.25em',
         textAlign: 'left',
+        userSelect: 'none',
     },
     '& td': {padding: '0.25em'},
 });

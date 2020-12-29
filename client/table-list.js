@@ -6,7 +6,7 @@ import { css, jsx } from '@emotion/react';
 const ListContainer = styled.div({
     borderRadius: '4px',
     overflow: 'hidden',
-    margin: '0 0.5em 0 0',
+    margin: '0 0.5em 0 0.5em',
     position: 'relative',
 });
 
@@ -16,12 +16,19 @@ const List = styled.ul({
     flex: '1 1 auto',
     margin: 0,
     padding: '0.25em',
+    boxSizing: 'border-box',
     listStyle: 'none',
     background: '#f8f8f8',
+    '& li': {
+        padding: '0.25em',
+    },
+    '& li:hover': {
+        background: '#ccc',
+    }
 });
 
 const Top = styled.div({
-    paddingBottom: '1em',
+    padding: '0.5em 0 1em 0.5em',
     '& label': { paddingRight: '0.6em' },
 });
 
@@ -57,7 +64,7 @@ export default function TableList({schemas}) {
     return (
         <>
             <Top>
-                <label for="schema-select">Schema</label>
+                <label htmlFor="schema-select">Schema</label>
                 <select id="schema-select"
                         value={selectedSchema}
                         onChange={selectSchema}
@@ -68,10 +75,10 @@ export default function TableList({schemas}) {
                 </select>
             </Top>
             <ListContainer>
-            <List>
-                {tables.map(table => <li key={table}>{table}</li>)}
-            </List>
-                </ListContainer>
+                <List>
+                    {tables.map(table => <li key={table}>{table}</li>)}
+                </List>
+            </ListContainer>
         </>
     );
 }
