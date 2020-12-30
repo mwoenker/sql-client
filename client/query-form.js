@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { css, jsx } from '@emotion/react';
 import styled from '@emotion/styled'
 import {useSelector, useDispatch} from 'react-redux'
-import {runQuery} from './state/query.js';
+import {runQuery, setText} from './state/query.js';
 import CodeMirror from 'codemirror/lib/codemirror.js';
 import 'codemirror/lib/codemirror.css'
 import 'codemirror/mode/sql/sql.js'
@@ -34,7 +34,10 @@ const Form = styled.div({
 });
 
 export default function QueryForm({}) {
-    const [sql, setSql] = useState('');
+    //const [sql, setSql] = useState('');
+    const sql = useSelector(state => state.query.text);
+    console.log({sql});
+    
     const dispatch = useDispatch();
     const containerRef = useRef();
     const editorRef = useRef();
@@ -52,7 +55,8 @@ export default function QueryForm({}) {
             
             const doc = editorRef.current.getDoc();
             doc.on('change', () => {
-                setSql(doc.getValue());
+                dispatch(setText(doc.getValue()));
+                //setSql(doc.getValue());
             });
         }
     }
@@ -72,10 +76,6 @@ export default function QueryForm({}) {
 
     const runQueryClicked = (e) => {
         dispatch(runQuery(sql));
-    };
-
-    const changeSql = (e) => {
-        setSql(e.target.value);
     };
 
     return (

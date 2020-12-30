@@ -1,15 +1,22 @@
 import {apiCall} from '../api.js';
 
-const initialState = {state: 'idle', error: null, data: null};
+const initialState = {
+    text: '',
+    state: 'idle',
+    error: null,
+    data: null
+};
                           
 export function queryReducer(state = initialState, action) {
     switch (action.type) {
+    case 'query/setText':
+        return {...state, text: action.payload};
     case 'query/loading':
-        return {state: 'loading', error: null, data: null}
+        return {...state, state: 'loading', error: null, data: null}
     case 'query/error':
-        return {state: 'error', error: action.payload, data: null};
+        return {...state, state: 'error', error: action.payload, data: null};
     case 'query/loaded':
-        return {state: 'loaded', error: null, data: action.payload};
+        return {...state, state: 'loaded', error: null, data: action.payload};
     case 'login/logout':
         return initialState;
     default:
@@ -17,17 +24,23 @@ export function queryReducer(state = initialState, action) {
     }
 };
 
-export function runQuery(sql) {
+export function setText(sql) {
+    return {type: 'query/setText', payload: sql};
+}
+
+export function runQuery() {
     return async (dispatch, getState) => {
         dispatch({type: 'query/loading'});
-        
-        const credentials = getState().login.credentials;
+
+        const state = getState();
+        const credentials = state.login.credentials;
+        const text = state.query.text;
         let result;
         
         try {
             result = await apiCall('/run-query', {
                 ...credentials,
-                sql
+                sql: text
             });
         } catch (e) {
             console.error(e);

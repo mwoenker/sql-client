@@ -46,7 +46,7 @@ const SidePanelBottom = styled.div({
 
 function App({}) {
     const loginData = useSelector(state => state.login.schemas);
-    const queryResult = useSelector(state => state.queryResult);
+    const query = useSelector(state => state.query);
     const dispatch = useDispatch();
     
     const doLogout = () => dispatch(logout());
@@ -65,7 +65,7 @@ function App({}) {
                         <QueryForm />
                     </QueryPane>
                     <ResultPane>
-                        <ResultsTable {...queryResult} />
+                        <ResultsTable {...query} />
                     </ResultPane>
                 </MainPanel>
             </Layout>

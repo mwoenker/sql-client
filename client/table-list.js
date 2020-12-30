@@ -2,6 +2,8 @@ import React, {useState, useEffect} from 'react';
 import ReactDOM from 'react-dom';
 import styled from '@emotion/styled';
 import { css, jsx } from '@emotion/react';
+import {useDispatch} from 'react-redux'
+import {runQuery, setText} from './state/query.js';
 
 const ListContainer = styled.div({
     borderRadius: '4px',
@@ -34,6 +36,7 @@ const Top = styled.div({
 
 export default function TableList({schemas}) {
     const [selectedSchema, setSelectedSchema] = useState('');
+    const dispatch = useDispatch();
 
     useEffect(
         () => {
@@ -58,6 +61,24 @@ export default function TableList({schemas}) {
     const selectSchema = (e) => {
         setSelectedSchema(e.target.value);
     };
+
+    const sqlDoubleQuote = (text) => {
+        return '"' + text.replace('"', '""') + '"';
+    }
+
+    const listClicked = (e) => {
+        const table = e.target.dataset.table;
+        // assume public is in search path, everything else isn't (this could
+        // be wrong)
+        if (table) {
+            const tableName = 'public' === selectedSchema
+                  ? sqlDoubleQuote(table)
+                  : (sqlDoubleQuote(selectedSchema) + '.' +
+                     sqlDoubleQuote(table));
+            
+            dispatch(setText(`SELECT * FROM ${tableName}`));
+        }
+    };
     
     const tables = schemas[selectedSchema] ?? [];
 
@@ -75,8 +96,10 @@ export default function TableList({schemas}) {
                 </select>
             </Top>
             <ListContainer>
-                <List>
-                    {tables.map(table => <li key={table}>{table}</li>)}
+                <List onClick={listClicked}>
+                    {tables.map(table => (
+                        <li data-table={table}key={table}>{table}</li>
+                    ))}
                 </List>
             </ListContainer>
         </>
