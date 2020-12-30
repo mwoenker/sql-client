@@ -27,13 +27,22 @@ const NullValue = styled.span({
     borderRadius: '3px',
 });
 
-function HeaderRow({data, onHeaderClicked}) {
+function HeaderRow({data, onHeaderClicked, sortColumn}) {
+    const sortDirection = index => {
+        if (index === sortColumn.index) {
+            // up or down arrow
+            return sortColumn.descending ? "\u2193" : "\u2191";
+        } else {
+            return ''
+        }
+    };
+    
     return (
         <tr>
-            {data.map((cellData, i) => (
+            {data.map((columnName, i) => (
                 <th key={i}
                     onClick={e => onHeaderClicked(i)}>
-                    {cellData}
+                    {`${columnName} ${sortDirection(i)}`}
                 </th>
             ))}
         </tr>
@@ -106,6 +115,7 @@ function Results({data}) {
         <table>
             <thead>
                 <HeaderRow
+                    sortColumn={sortColumn}
                     data={data.columns}
                     onHeaderClicked={sortClicked} />
             </thead>
