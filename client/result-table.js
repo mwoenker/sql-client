@@ -94,7 +94,7 @@ function Results({data}) {
     const compare = (a, b) => {
         if (typeof a === 'number' && typeof b === 'number') {
             return a - b;
-        } else if (a && b) {
+        } else if ('string' === typeof a && 'string' === typeof b) {
             return a.localeCompare(b);
         } else {
             return 0;
