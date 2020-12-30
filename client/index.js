@@ -45,7 +45,6 @@ const SidePanelBottom = styled.div({
 });
 
 function App({}) {
-    //const {state, login, logout, schemas, queryResult} = useLoginContext();
     const loginData = useSelector(state => state.login.schemas);
     const queryResult = useSelector(state => state.queryResult);
     const dispatch = useDispatch();
