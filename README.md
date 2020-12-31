@@ -32,6 +32,12 @@ asynchronous data fetching.
 * `validators` contains a single (so far) validator that can be shared between
   client and server code.
 
+## Install dependencies
+
+```
+npm install
+```
+
 ## Build and run production build
 
 Runs a server on port 3000
