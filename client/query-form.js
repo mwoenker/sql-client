@@ -34,7 +34,6 @@ const Form = styled.div({
 });
 
 export default function QueryForm({}) {
-    //const [sql, setSql] = useState('');
     const sql = useSelector(state => state.query.text);
     
     const dispatch = useDispatch();
@@ -55,7 +54,6 @@ export default function QueryForm({}) {
             const doc = editorRef.current.getDoc();
             doc.on('change', () => {
                 dispatch(setText(doc.getValue()));
-                //setSql(doc.getValue());
             });
         }
     }
