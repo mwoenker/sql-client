@@ -17,6 +17,7 @@ const Container = styled.div({
 });
 
 const LoginForm = styled.form({
+    width: '400px',
     background: '#fff',
     padding: '1em',
     borderRadius: '0.5em',
@@ -30,25 +31,34 @@ const ButtonRow = styled.div({
 });
 
 const FormGroup = styled.div({
-    display: 'table-row',
-    '&>*': { margin: '0.5em' },
+    display: 'flex',
+    flexWrap: 'wrap',
+    padding: '0.5em',
 });
 
 const Label = styled.label({
-    display: 'table-cell',
+    padding: '0.25em',
+    flex: '0 0 30%',
+    boxSizing: 'border-box',
 });
 
 const Input = styled.input({
-    display: 'table-cell',
+    flex: '0 0 70%',
     border: '1px solid #888',
     padding: '0.25em',
     borderRadius: '3px',
+    boxSizing: 'border-box',
 });
 
 const Error = styled.div({
-    display: 'table-cell',
-    color: '#c00',
+    width: '100%',
+    color: '#a00',
     fontWeight: 'bold',
+    paddingTop: '0.25em',
+    boxSizing: 'border-box',
+    textAlign: 'right',
+    fontSize: '85%',
+    height: '1em',
 });
 
 function Field({name, title, formState, onChange, formErrors, type='text'}) {
