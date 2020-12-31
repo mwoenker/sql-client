@@ -1,8 +1,8 @@
 # SQL Client
 
 Simple Postgresql SQL client. Will show a login dialog asking for credential
-information for the database. When the login form is submitted, if successful,
-it will be replaced with the main applicaion interface. On the right is a panel
+information for the database. When the login form is successfully submitted
+it will be replaced with the main application interface. On the right is a panel
 showing a list of tables in the current schema, and a dropdown to switch to a
 different schema. There is also a "Log Out" button to return to the login
 dialog.
