@@ -29,7 +29,7 @@ export function loginReducer(state = initialState, action) {
             schemas: {state: 'loaded', error: null, data: action.payload}
         };
     case 'login/logout':
-        return {...initialState, credentials: state.credentials};
+        return {...initialState};
     default:
         return state;
     }

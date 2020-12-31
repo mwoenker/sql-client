@@ -61,6 +61,16 @@ const Error = styled.div({
     height: '1em',
 });
 
+const GeneralError = styled.div({
+    width: '100%',
+    color: '#a00',
+    fontWeight: 'bold',
+    paddingBottom: '0.5em',
+    boxSizing: 'border-box',
+    fontSize: '85%',
+    height: '1em',
+});
+
 function Field({name, title, formState, onChange, formErrors, type='text'}) {
     const id = `login-${name}`;
     return (
@@ -99,6 +109,7 @@ export default function Login({}) {
     const loginData = useSelector(state => state.login.schemas);
     const dispatch = useDispatch();
     const [formState, setFormState] = useState(credentials)
+    const [clientErrors, setClientErrors] = useState({});
 
     // update form state when credentials changes
     useEffect(
@@ -106,7 +117,8 @@ export default function Login({}) {
         [credentials]
     );
     
-    const formErrors = loginData.error?.formErrors ?? {};
+    const serverErrors = loginData.error?.formErrors ?? {};
+    const formErrors = {...serverErrors, ...clientErrors};
     
     const change = (e) => {
         setFormState({...formState, [e.target.name]: e.target.value});
@@ -114,13 +126,21 @@ export default function Login({}) {
 
     const doLogin = (e) => {
         e.preventDefault();
-        dispatch(login(formState));
+        const errors = validate(formState, credentialFormat);
+        if (errors) {
+            setClientErrors(errors);
+        } else {
+            const credentials = validate.cleanAttributes(
+                formState, credentialFormat);
+            dispatch(login(credentials));
+            setClientErrors({});
+        }
     };
         
     return (
         <Container>
             <LoginForm onSubmit={doLogin}>
-                {loginData.error?.message || null}
+                <GeneralError>{loginData.error?.message || null}</GeneralError>
                 {loginFields.map(field => (
                     <Field name={field.name}
                            title={field.title}
