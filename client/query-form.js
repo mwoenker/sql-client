@@ -36,7 +36,6 @@ const Form = styled.div({
 export default function QueryForm({}) {
     //const [sql, setSql] = useState('');
     const sql = useSelector(state => state.query.text);
-    console.log({sql});
     
     const dispatch = useDispatch();
     const containerRef = useRef();
