@@ -1,5 +1,5 @@
-import webpack from 'webpack';
-import config from './webpack.config.js';
+const webpack = require('webpack');
+const config = require('./webpack.config.js');
 
 const prodConfig = {
     ...config,
