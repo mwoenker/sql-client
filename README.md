@@ -27,9 +27,16 @@ asynchronous data fetching.
 
 ## Basic layout
 
-* `client`: contains all the client-side code
-* `server`: contains all server side code
-* `validators` contains a single (so far) validator that can be shared between
+* `index.js` is the production server script
+* `build.js` is responsible for building the production bundle
+* `dev.js` is the script for development mode
+* `client/`: contains all the client-side code for the various React components,
+   including the Emotion styled components
+    * `client/state/` contain two Redux reducer functions as well as the
+      associated action creation functions  (in `query.js` and `login.js`) which
+      are composed into a single reducer and Redux store in `global.js`.
+* `server/`: contains server side code
+* `validators/` contains a single (so far) validator that can be shared between
   client and server code.
 
 ## Install dependencies
